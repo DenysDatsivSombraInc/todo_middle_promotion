@@ -1,0 +1,39 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+  <div class="card shadow-lg p-4 rounded" style="max-width: 450px; width: 100%;">
+    <h2 class="text-center text-primary fw-bold mb-1">Login</h2>
+    <p class="flex justify-content-center text-center word-sp">
+      Don't have an account?
+      <a [routerLink]="['/', ROUTES.REGISTER]">Register</a>
+    </p>
+
+    <form [formGroup]="loginForm" (submit)="login()">
+      <div class="mb-4">
+        <p-floatLabel>
+          <input pInputText id="email" type="email" class="form-control medium-size" [formControlName]="LOGIN_FORM_CONTROLS.EMAIL"/>
+          <label for="email">Email</label>
+        </p-floatLabel>
+      </div>
+
+      <div class="mb-4">
+        <p-floatLabel>
+          <p-password id="password" [formControlName]="LOGIN_FORM_CONTROLS.PASSWORD" class="w-100" toggleMask></p-password>
+          <label for="password">Password</label>
+        </p-floatLabel>
+      </div>
+
+      <div class="flex justify-content-end align-items-center">
+        <button pButton type="submit" label="Login" class="btn btn-primary w-100 fw-bold py-2"></button>
+      </div>
+
+      <div class="text-center mt-3">
+        <p-divider align="center" type="dotted">
+          <b>Sign in with Google</b>
+        </p-divider>
+        <p-button class="rounded-circle" severity="warning" icon="pi pi-google"
+                  [rounded]="true" [text]="true" [raised]="true"
+                  (click)="signUpWithGoogle()">
+        </p-button>
+      </div>
+    </form>
+  </div>
+</div>

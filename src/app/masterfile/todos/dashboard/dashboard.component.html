@@ -1,0 +1,38 @@
+<section class="mt-5 flex justify-content-center flex-column">
+  <div class="w-full max-w-4xl px-2 md:px-5 lg:px-8 lg:py-2">
+    @if (isLoading()) {
+      <p-progressSpinner></p-progressSpinner>
+    } @else {
+      <p-card class="p-4">
+        <div class="flex flex-column md:flex-row justify-content-between items-center">
+          <h2 class="text-center my-0 ">
+            Welcome, {{ user()?.displayName || user()?.email }} 👋
+          </h2>
+          <p-button
+            (click)="showDialog()"
+            [rounded]="true"
+            class="flex justify-content-center"
+            icon="pi pi-check"
+            label="Add new todo">
+          </p-button>
+        </div>
+      </p-card>
+    }
+  </div>
+
+  <div class="flex flex-column lg:flex-row gap-4 px-2 max-w-4xl md:px-5 lg:px-8 lg:py-2">
+    <div>
+      <app-calendar (dateChange)="handleDateChange($event)"></app-calendar>
+    </div>
+
+    <div class="w-full">
+      <p-card>
+        <app-todo-list [selectedDate]="selectedDate" [userData]="user()"></app-todo-list>
+      </p-card>
+    </div>
+  </div>
+
+  @if (dialogService.isOpen()) {
+    <app-upsert-form [userData]="user()"></app-upsert-form>
+  }
+</section>

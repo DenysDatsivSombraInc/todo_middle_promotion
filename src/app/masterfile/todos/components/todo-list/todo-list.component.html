@@ -1,0 +1,41 @@
+<div class="todo-list">
+  <h3 class="text-center">Todos for {{ selectedDate() | date: 'longDate' }}</h3>
+
+  @if (filteredTodos()?.length > 0) {
+    <div class="todo-list @(filteredTodos()?.length > 2 ? 'overlay-container' : '')">
+      @for (todo of filteredTodos(); track todo.id) {
+        <div class="mb-3">
+          <p-card class="mb-3">
+            <div class="flex justify-content-between">
+              <h3 [ngClass]="{ 'todo-completed': todo.checkMark }">
+                {{ todo.title }}
+              </h3>
+              <div>
+                <p-button
+                  icon="pi pi-ellipsis-v"
+                  [rounded]="true"
+                  [text]="true"
+                  (click)="openMenu(todo, $event, menu)"
+                />
+                <p-tieredMenu #menu [model]="menuItems" [popup]="true"/>
+              </div>
+            </div>
+            <p [ngClass]="{ 'todo-completed': todo.checkMark }">{{ todo.description }}</p>
+            <div class="flex flex-column gap-2">
+              <small [ngClass]="{ 'todo-completed': todo.checkMark }">Due: {{ todo.dueDate | date: 'medium' }}</small>
+              <small [ngClass]="{ 'todo-completed': todo.checkMark }">Created: {{ todo.creationDate | date: 'medium' }}</small>
+
+              @if (todo.checkMark && todo.completionDate) {
+                <small class="completion-date">Completed on: {{ todo.completionDate | date: 'medium' }}</small>
+              }
+            </div>
+
+
+          </p-card>
+        </div>
+      }
+    </div>
+  } @else {
+    <p class="text-center">No todos found for this date.</p>
+  }
+</div>

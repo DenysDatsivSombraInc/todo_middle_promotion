@@ -1,0 +1,55 @@
+<p-dialog
+  [header]="isEditMode ? 'Edit ToDo' : 'Create new ToDo'"
+  [visible]="dialogService.isOpen()"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  closable="false"
+  [resizable]="false"
+>
+  <form [formGroup]="todoForm" (ngSubmit)="isEditMode ? updateExistingTodo() : submitNewTodo()">
+    <div class="p-fluid mt-4 lg:mt-2">
+      <p-floatLabel>
+        <input pInputText class="w-full p-3" [formControlName]="UPSERT_FORM_CONTROLS.TITLE" id="title" />
+        <label for="title">Title</label>
+      </p-floatLabel>
+    </div>
+
+    <div class="mt-4">
+      <p-floatLabel>
+        <textarea
+          rows="5"
+          cols="30"
+          pInputTextarea
+          class="w-full h-10rem md:h-15rem lg:h-20"
+          [formControlName]="UPSERT_FORM_CONTROLS.DESCRIPTION"
+          id="description"></textarea>
+        <label for="description">Description</label>
+      </p-floatLabel>
+    </div>
+
+    <div class="p-fluid mt-4">
+      <p-calendar
+        id="dueDate"
+        [formControlName]="UPSERT_FORM_CONTROLS.DUE_DATE"
+        dateFormat="yy-mm-dd"
+        showIcon="true"
+        placeholder="Due Date"
+        [showTime]="true"
+        [minDate]="minDate()"
+        [hourFormat]="'24'"
+        [touchUI]="true"
+      ></p-calendar>
+    </div>
+
+    <div class="mt-4 flex justify-content-end">
+      <p-button type="button" label="Cancel" class="mr-2" (click)="dialogService.closeDialog()" severity="contrast"></p-button>
+      <p-button
+        type="submit"
+        [disabled]="todoForm.invalid || (isEditMode && !isModified())"
+        [label]="isEditMode ? 'Save Changes' : 'Add Todo'">
+      </p-button>
+    </div>
+  </form>
+</p-dialog>

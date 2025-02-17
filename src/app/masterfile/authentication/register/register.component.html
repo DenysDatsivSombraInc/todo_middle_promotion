@@ -1,0 +1,60 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+  <div class="card shadow-lg p-4 rounded" style="max-width: 450px; width: 100%;">
+    <h2 class="text-center text-primary fw-bold mb-1">Register</h2>
+    <p class="flex justify-content-center text-center word-sp">
+      Already registered?
+      <a [routerLink]="['/', ROUTES.LOGIN]">Sign In</a>
+    </p>
+    <form [formGroup]="registerForm" (submit)="register(); $event.preventDefault()">
+      <div class="mb-4">
+        <p-floatLabel>
+          <input pInputText id="username" type="text" class="form-control medium-size" [formControlName]="REGISTER_FORM_CONTROLS.USERNAME"/>
+          <label for="username">Username</label>
+        </p-floatLabel>
+      </div>
+
+      <div class="mb-4">
+        <p-floatLabel>
+          <input size="large" pInputText id="email" type="email" class="form-control medium-size "
+                 [formControlName]="REGISTER_FORM_CONTROLS.EMAIL"/>
+          <label for="email">Email</label>
+        </p-floatLabel>
+      </div>
+
+      <div class="mb-4">
+        <p-floatLabel>
+          <p-password id="password" [formControlName]="REGISTER_FORM_CONTROLS.PASSWORD" class="w-100" toggleMask></p-password>
+          <label for="password">Password</label>
+        </p-floatLabel>
+      </div>
+
+      <div class="mb-4">
+        <p-floatLabel class="w-100">
+          <p-password id="confirmPassword" [formControlName]="REGISTER_FORM_CONTROLS.CONFIRM_PASSWORD" class="w-100" toggleMask></p-password>
+          <label for="confirmPassword">Confirm Password</label>
+        </p-floatLabel>
+      </div>
+
+      <div class="alert alert-danger py-2" *ngIf="isSubmitted && registerForm.errors?.['mismatch']">
+        Passwords do not match!
+      </div>
+
+      <div class="flex justify-content-end align-items-center">
+        <button pButton type="submit" label="Register" class="btn btn-primary w-100 fw-bold py-2"></button>
+      </div>
+
+
+      <div class="text-center mt-3">
+
+        <p-divider align="center" type="dotted">
+          <b>Sign up with Google</b>
+        </p-divider>
+
+        <p-button class="rounded-circle " severity="warning" icon="pi pi-google" [rounded]="true" [text]="true"
+                  [raised]="true" (click)="signUpWithGoogle()"/>
+      </div>
+    </form>
+  </div>
+</div>
+
+
