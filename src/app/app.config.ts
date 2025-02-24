@@ -19,7 +19,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireModule } from '@angular/fire/compat';
 import {todoReducer} from "./masterfile/todos/store/reducers/todo.reducer";
 import {TodoEffects} from "./masterfile/todos/store/effects/todo.effect";
-import {environment} from "./environments/environment";
+import {environment} from "../environments/environment";
 
 export const appConfig: ApplicationConfig = {
   providers: [
