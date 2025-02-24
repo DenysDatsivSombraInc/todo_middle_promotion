@@ -9,7 +9,6 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { provideFunctions, getFunctions } from '@angular/fire/functions';
-import { firebaseConfig } from './core/config/firebase.config';
 import { routes } from './app.routes';
 import { provideStore } from "@ngrx/store";
 import { provideEffects } from "@ngrx/effects";
@@ -20,6 +19,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireModule } from '@angular/fire/compat';
 import {todoReducer} from "./masterfile/todos/store/reducers/todo.reducer";
 import {TodoEffects} from "./masterfile/todos/store/effects/todo.effect";
+import {environment} from "./environments/environment";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -30,11 +30,11 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
 
     importProvidersFrom(
-      AngularFireModule.initializeApp(firebaseConfig),
+      AngularFireModule.initializeApp(environment.firebase),
       AngularFireAuthModule
     ),
 
-    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideDatabase(() => getDatabase()),
